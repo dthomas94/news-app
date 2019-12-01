@@ -1,26 +1,33 @@
 import React from "react";
 import "./App.css";
 import { Box } from "grommet";
-import { NavLink, Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import TopNews from './TopNews';
-import Categories from './Categories';
-import Search from './Search';
+import {
+	NavLink,
+	Link,
+	BrowserRouter as Router,
+	Switch,
+	Route,
+} from "react-router-dom";
+import TopNews from "./TopNews";
+import Categories from "./Categories";
+import Search from "./Search";
+import queryString from "query-string";
 
 const routes = [
 	{
 		label: "Top News",
-    path: "/topNews",
-    view: <TopNews /> 
+		path: "/topNews",
+		view: <TopNews />,
 	},
 	{
 		label: "Categories",
-    path: "/categories",
-    view: <Categories />
+		path: "/categories",
+		view: <Categories />,
 	},
 	{
 		label: "Search",
-    path: "/search",
-    view: <Search />
+		path: "/search",
+		view: <Search />,
 	},
 ];
 
@@ -29,32 +36,48 @@ const countries = ["gb", "us"];
 const App: React.FC = () => {
 	return (
 		<Router>
-			<Box>
-				<Box id="nav" direction="row" justify="between">
+			<Box pad="small">
+				<Box
+					id="nav"
+					direction="row"
+					justify="between"
+					border={{ side: "all", size: "1px" }}
+					align="center"
+				>
 					<Box direction="row">
 						{routes.map(({ path, label }) => (
-							<NavLink key={label} to={path}>
+							<NavLink
+								key={label}
+								to={path}
+								activeStyle={{ background: "gray", color: "white" }}
+								className="nav-link"
+							>
 								{label}
 							</NavLink>
 						))}
 					</Box>
 					<Box direction="row">
 						{countries.map(country => (
-							<Link to={location => `${location.pathname}?country=${country}`}>
+							<NavLink
+								key={country}
+								to={location => `${location.pathname}?country=${country}`}
+								activeStyle={{ background: "gray", color: "white" }}
+								className="context-link"
+								isActive={(match, location) => {
+									const values = queryString.parse(location.search);
+									return values.country === country;
+								}}
+							>
 								{country.toUpperCase()}
-							</Link>
+							</NavLink>
 						))}
 					</Box>
 				</Box>
-        <Switch>
-          {
-            routes.map(({path, view}) => (
-              <Route path={path}>
-                {view}
-              </Route>
-            ))
-          }
-        </Switch>
+				<Switch>
+					{routes.map(({ path, view }) => (
+						<Route path={path}>{view}</Route>
+					))}
+				</Switch>
 			</Box>
 		</Router>
 	);
