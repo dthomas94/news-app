@@ -3,7 +3,6 @@ import "./App.css";
 import { Box } from "grommet";
 import {
 	NavLink,
-	Link,
 	BrowserRouter as Router,
 	Switch,
 	Route,
@@ -16,7 +15,7 @@ import queryString from "query-string";
 const routes = [
 	{
 		label: "Top News",
-		path: "/topNews",
+		path: "/",
 		view: <TopNews />,
 	},
 	{
@@ -48,7 +47,8 @@ const App: React.FC = () => {
 						{routes.map(({ path, label }) => (
 							<NavLink
 								key={label}
-								to={path}
+                to={path}
+                exact
 								activeStyle={{ background: "gray", color: "white" }}
 								className="nav-link"
 							>
