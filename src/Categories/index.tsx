@@ -13,36 +13,37 @@ type CategoryProp = {
 };
 
 const Category: React.FC<CategoryProp> = ({ articles, title }) => (
-	<Box>
+	<Box fill>
 		<Text>{title}</Text>
-    <Box direction="row" justify="between" alignContent="center">
-		{articles.map(({ title, description, urlToImage }) => (
-			<Card title={title} description={description} urlToImage={urlToImage} />
-		))}
-    </Box>
+		<Box direction="row" justify="between" alignContent="center">
+			{articles.map(({ title, description, urlToImage }) => (
+				<Card title={title} description={description} urlToImage={urlToImage} />
+			))}
+		</Box>
 	</Box>
 );
 const Categories: React.FC<CategoriesProps> = ({ country }) => {
-  const [content, setContent] = useState(null);
+	const [content, setContent] = useState(null);
 
-  useEffect(() => {
-    getTopNewsInAllCategories(country, 5).then(results => {
-      if (results !== undefined) {
-          setContent(results.map(
-          //@ts-ignore
-          (result: { data: { articles: Array<any> } }, index) => {
-            const {
-              data: { articles },
-            } = result;
-            return <Category articles={articles} title={categories[index]} />;
-          }
-        ))
-      }
-    });
-  
-  }, [country]);
-	
-	return <Box>{content}</Box>;
+	useEffect(() => {
+		getTopNewsInAllCategories(country, 5).then(results => {
+			if (results !== undefined) {
+				setContent(
+					results.map(
+						//@ts-ignore
+						(result: { data: { articles: Array<any> } }, index) => {
+							const {
+								data: { articles },
+							} = result;
+							return <Category articles={articles} title={categories[index]} />;
+						}
+					)
+				);
+			}
+		});
+	}, [country]);
+
+	return <Box pad="small">{content}</Box>;
 };
 
 export default Categories;

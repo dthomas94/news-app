@@ -8,11 +8,13 @@ type CardProps = {
 	description: string;
 };
 
-const Card: React.FC<CardProps> = ({title, urlToImage, description}) => {
+const Card: React.FC<CardProps> = ({ title, urlToImage, description }) => {
 	return (
-		<Box justify="between" alignContent="center">
+		<Box justify="between" alignContent="center" responsive fill>
 			<Text>{title}</Text>
-			<Image fit="cover" src={urlToImage} />
+			<Box height="small" width="small">
+				<Image fit="cover" src={urlToImage} />
+			</Box>
 			<Text>{description}</Text>
 			<Link
 				to={location => ({
