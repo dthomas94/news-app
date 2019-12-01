@@ -67,7 +67,7 @@ const App: React.FC = () => {
 					<Text>{heading}</Text>
 					<Switch>
 						{routes.map(({ path, view }) => (
-							<Route path={path} component={() => view({ selectedCountry })} />
+							<Route path={path} children={view({ selectedCountry })} />
 						))}
 					</Switch>
 				</Box>

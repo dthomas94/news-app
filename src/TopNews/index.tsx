@@ -1,10 +1,17 @@
 import React from 'react';
 import { Box } from 'grommet';
 
-const TopNews = () => (
-  <Box>
-    hello
-  </Box>
-)
+type TopNewsProps = {
+  country: string;
+}
+
+
+
+const TopNews:React.FC<TopNewsProps> = ({country}) => {
+  
+  return (
+    <Box></Box>
+  );
+};
 
 export default TopNews;
