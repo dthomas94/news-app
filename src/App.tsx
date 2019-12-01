@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Box, Grommet, Text } from "grommet";
-import {
-	Switch,
-	Route,
-	useLocation,
-	useParams,
-} from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import TopNews from "./TopNews";
 import Categories from "./Categories";
 import Search from "./Search";
@@ -16,13 +11,17 @@ import theme from "./theme";
 const routes = [
 	{
 		label: "Top News",
-		path: "/",
-		view: (props: any) => <TopNews {...props} />,
+		path: "/topNews",
+		view: (props: any) => {
+			return <TopNews {...props} />;
+		},
 	},
 	{
 		label: "Categories",
 		path: "/categories",
-		view: (props: any) => <Categories {...props} />,
+		view: (props: any) => {
+			return <Categories {...props} />;
+		},
 	},
 	{
 		label: "Search",
@@ -57,21 +56,28 @@ const App: React.FC = () => {
 	}, [selectedCountry, selectedCategory, location.pathname]);
 
 	return (
-			<Grommet theme={theme}>
-				<Box pad="small">
-					<Nav
-						routes={routes}
-						selectedCountry={selectedCountry}
-						setCountry={setCountry}
-					/>
-					<Text>{heading}</Text>
-					<Switch>
-						{routes.map(({ path, view }) => (
-							<Route path={path} children={view({ selectedCountry })} />
-						))}
-					</Switch>
-				</Box>
-			</Grommet>
+		<Grommet theme={theme}>
+			<Box pad="small">
+				<Nav
+					routes={routes.map(route => ({
+						label: route.label,
+						path: route.path,
+					}))}
+					selectedCountry={selectedCountry}
+					setCountry={setCountry}
+				/>
+				<Text>{heading}</Text>
+				<Switch>
+					{routes.map(({ path, view }) => (
+						<Route
+							key={path}
+              path={path}
+							component={() => view({ country: selectedCountry })}
+						/>
+					))}
+				</Switch>
+			</Box>
+		</Grommet>
 	);
 };
 

@@ -7,7 +7,6 @@ const countries = ["gb", "us"];
 type NavRoute = {
 	label: string;
 	path: string;
-	view: (props: any) => JSX.Element;
 };
 
 type NavProps = {

@@ -10,7 +10,7 @@ type TopNewsProps = {
 const TopNews:React.FC<TopNewsProps> = ({country}) => {
   
   return (
-    <Box></Box>
+    <Box>grg</Box>
   );
 };
 

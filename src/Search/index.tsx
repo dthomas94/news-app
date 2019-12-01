@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from 'grommet';
 
-const Search = () => (
+const Search:React.FC = () => (
   <Box>
     hello
   </Box>
