@@ -1,84 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Box } from "grommet";
-import {
-	NavLink,
-	BrowserRouter as Router,
-	Switch,
-	Route,
-} from "react-router-dom";
+import { Box, Grommet } from "grommet";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TopNews from "./TopNews";
 import Categories from "./Categories";
 import Search from "./Search";
-import queryString from "query-string";
+import Nav from "./components/Nav";
+import theme from './theme';
 
 const routes = [
 	{
 		label: "Top News",
 		path: "/",
-		view: <TopNews />,
+		view: (props: any) => <TopNews {...props} />,
 	},
 	{
 		label: "Categories",
 		path: "/categories",
-		view: <Categories />,
+		view: (props: any) => <Categories {...props} />,
 	},
 	{
 		label: "Search",
 		path: "/search",
-		view: <Search />,
+		view: (props: any) => <Search {...props}/>,
 	},
 ];
 
-const countries = ["gb", "us"];
-
 const App: React.FC = () => {
+  const [currentCountry, setCountry] = useState("gb");
+
 	return (
 		<Router>
-			<Box pad="small">
-				<Box
-					id="nav"
-					direction="row"
-					justify="between"
-					border={{ side: "all", size: "1px" }}
-					align="center"
-				>
-					<Box direction="row">
-						{routes.map(({ path, label }) => (
-							<NavLink
-								key={label}
-                to={path}
-                exact
-								activeStyle={{ background: "gray", color: "white" }}
-								className="nav-link"
-							>
-								{label}
-							</NavLink>
+			<Grommet theme={theme}>
+				<Box pad="small">
+					<Nav routes={routes} currentCountry={currentCountry} setCountry={setCountry}/>
+					<Switch>
+						{routes.map(({ path, view }) => (
+							<Route path={path} component={() => view({currentCountry})} />
 						))}
-					</Box>
-					<Box direction="row">
-						{countries.map(country => (
-							<NavLink
-								key={country}
-								to={location => `${location.pathname}?country=${country}`}
-								activeStyle={{ background: "gray", color: "white" }}
-								className="context-link"
-								isActive={(match, location) => {
-									const values = queryString.parse(location.search);
-									return values.country === country;
-								}}
-							>
-								{country.toUpperCase()}
-							</NavLink>
-						))}
-					</Box>
+					</Switch>
 				</Box>
-				<Switch>
-					{routes.map(({ path, view }) => (
-						<Route path={path}>{view}</Route>
-					))}
-				</Switch>
-			</Box>
+			</Grommet>
 		</Router>
 	);
 };
