@@ -13,10 +13,10 @@ type NavRoute = {
 type NavProps = {
   routes: Array<NavRoute>;
   setCountry: React.Dispatch<React.SetStateAction<string>>;
-  currentCountry: string;
+  selectedCountry: string;
 };
 
-const Nav: React.FC<NavProps> = ({ routes, setCountry, currentCountry }) => {
+const Nav: React.FC<NavProps> = ({ routes, setCountry, selectedCountry }) => {
 	return (
 		<Box
 			id="nav"
@@ -43,7 +43,7 @@ const Nav: React.FC<NavProps> = ({ routes, setCountry, currentCountry }) => {
 						<Button
 							plain
 							key={country}
-							active={country === currentCountry}
+							active={country === selectedCountry}
 							onClick={() => {
 								setCountry(country);
 							}}

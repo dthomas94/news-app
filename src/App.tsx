@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Box, Grommet } from "grommet";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Box, Grommet, Text } from "grommet";
+import {
+	Switch,
+	Route,
+	useLocation,
+	useParams,
+} from "react-router-dom";
 import TopNews from "./TopNews";
 import Categories from "./Categories";
 import Search from "./Search";
 import Nav from "./components/Nav";
-import theme from './theme';
+import theme from "./theme";
 
 const routes = [
 	{
@@ -22,26 +27,51 @@ const routes = [
 	{
 		label: "Search",
 		path: "/search",
-		view: (props: any) => <Search {...props}/>,
+		view: (props: any) => <Search {...props} />,
 	},
 ];
 
 const App: React.FC = () => {
-  const [currentCountry, setCountry] = useState("gb");
+	const [selectedCountry, setCountry] = useState("gb");
+	const [selectedCategory, setCategory] = useState(null);
+	const [heading, setHeading] = useState("Top News from Great Britain");
+	const location = useLocation();
+
+	useEffect(() => {
+		let heading = "";
+		switch (location.pathname) {
+			case "/":
+				heading = `Top News from ${selectedCountry}:`;
+				break;
+			case "/categories":
+				if (selectedCategory) {
+					heading = `Top ${selectedCategory} news from ${selectedCountry}:`;
+				} else {
+					heading = `Top 5 news by categories from ${selectedCountry}:`;
+				}
+				break;
+			case "/search":
+				heading = `Search top news from ${selectedCountry} by term:`;
+		}
+		setHeading(heading);
+	}, [selectedCountry, selectedCategory, location.pathname]);
 
 	return (
-		<Router>
 			<Grommet theme={theme}>
 				<Box pad="small">
-					<Nav routes={routes} currentCountry={currentCountry} setCountry={setCountry}/>
+					<Nav
+						routes={routes}
+						selectedCountry={selectedCountry}
+						setCountry={setCountry}
+					/>
+					<Text>{heading}</Text>
 					<Switch>
 						{routes.map(({ path, view }) => (
-							<Route path={path} component={() => view({currentCountry})} />
+							<Route path={path} component={() => view({ selectedCountry })} />
 						))}
 					</Switch>
 				</Box>
 			</Grommet>
-		</Router>
 	);
 };
 
