@@ -37,12 +37,12 @@ export const getTopNewsInAllCategories = async (country: string, limit: number) 
 export const getTopNewsInCategory = async (
 	country: string,
 	category: string,
-	limit: number
+	limit?: number
 ) => {
 	try {
-		const response = await axios.get(
+		const response = axios.get(
 			`?country=${country}&category=${category}&pageSize=${limit}`
-		);
+		).then(resp => resp.data);
 		return response;
 	} catch (error) {
 		console.error(error);

@@ -10,7 +10,7 @@ type CardProps = {
 
 const Card: React.FC<CardProps> = ({ title, urlToImage, description }) => {
 	return (
-		<Box justify="between" alignContent="center" responsive fill>
+		<Box className="card" justify="between" alignContent="center" responsive fill>
 			<Text>{title}</Text>
 			<Box height="small" width="small">
 				<Image fit="cover" src={urlToImage} />

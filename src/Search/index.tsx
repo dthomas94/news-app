@@ -22,7 +22,7 @@ const Search: React.FC<SearchProps> = ({ country }) => {
     if (queryResult) {
       queryResult.then((data: any) => setArticles(data.articles));
     }
-	}, [articleQuery]);
+	}, [articleQuery, delayedQuery]);
 
 	const onChange = (e: any) => {
 		setArticleQuery(e.target.value);
