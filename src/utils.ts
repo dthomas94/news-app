@@ -51,7 +51,7 @@ export const getTopNewsInCategory = async (
 
 export const search = async (country: string, term: string) => {
 	try {
-		const response = await axios.get(`?country=${country}&q=${term}`);
+		const response = await axios.get(`?country=${country}&q=${term}`).then(resp => resp.data);
 		return response;
 	} catch (error) {
 		console.error(error);
