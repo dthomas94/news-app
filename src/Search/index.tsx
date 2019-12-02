@@ -18,10 +18,10 @@ const Search: React.FC<SearchProps> = ({ country }) => {
 	const [articles, setArticles] = useState<Array<any>>([]);
 
 	useEffect(() => {
-    const queryResult = delayedQuery(articleQuery);
-    if (queryResult) {
-      queryResult.then((data: any) => setArticles(data.articles));
-    }
+		const queryResult = delayedQuery(articleQuery);
+		if (queryResult) {
+			queryResult.then((data: any) => setArticles(data.articles));
+		}
 	}, [articleQuery, delayedQuery]);
 
 	const onChange = (e: any) => {
@@ -47,12 +47,13 @@ const Search: React.FC<SearchProps> = ({ country }) => {
 				/>
 			</Box>
 			<Box pad="small" direction="row" wrap>
-				{articles.map(({ title, description, urlToImage }) => (
+				{articles.map(({ title, description, urlToImage, content }) => (
 					<Box width="medium">
 						<Card
 							title={title}
 							description={description}
 							urlToImage={urlToImage}
+							content={content}
 						/>
 					</Box>
 				))}

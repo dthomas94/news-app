@@ -30,10 +30,16 @@ const Category: React.FC<CategoryProp> = ({
 		)}
 
 		<Box direction="row" justify="evenly" alignContent="center" fill wrap>
-			{articles.map(({ title, description, urlToImage }) => (
-        <Box width="small">
-				<Card key={title} title={title} description={description} urlToImage={urlToImage} />
-        </Box>
+			{articles.map(({ title, description, urlToImage, content }) => (
+				<Box width="small">
+					<Card
+						key={title}
+						title={title}
+						description={description}
+						urlToImage={urlToImage}
+						content={content}
+					/>
+				</Box>
 			))}
 		</Box>
 	</Box>
@@ -76,7 +82,7 @@ const Categories: React.FC<CategoriesProps> = ({ country }) => {
 			)}
 			{content.map(({ articles, category }) => (
 				<Category
-          key={category}
+					key={category}
 					articles={articles}
 					category={category}
 					setCategoryHeading={setCategoryHeading}
