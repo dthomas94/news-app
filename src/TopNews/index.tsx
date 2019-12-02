@@ -1,17 +1,30 @@
-import React from 'react';
-import { Box } from 'grommet';
+import React, { useEffect, useState } from "react";
+import { Box } from "grommet";
+import { getTopNewsInCountry } from "../utils";
+import Card from "../components/Card";
 
 type TopNewsProps = {
-  country: string;
-}
+	country: string;
+};
 
+const TopNews: React.FC<TopNewsProps> = ({ country }) => {
+	const [articles, setArticles] = useState<Array<any>>([]);
 
+	useEffect(() => {
+		getTopNewsInCountry(country).then(data => {
+			setArticles(data.articles);
+		});
+	}, [country]);
 
-const TopNews:React.FC<TopNewsProps> = ({country}) => {
-  
-  return (
-    <Box>grg</Box>
-  );
+	return (
+		<Box pad="small" direction="row" wrap>
+			{articles.map(({ title, description, urlToImage }) => (
+        <Box width='medium'>
+				  <Card title={title} description={description} urlToImage={urlToImage} />
+        </Box>
+			))}
+		</Box>
+	);
 };
 
 export default TopNews;

@@ -13,8 +13,8 @@ export const categories = [
 
 export const getTopNewsInCountry = async (country: string) => {
 	try {
-		const response = await axios.get(`?country=${country}`);
-		return response;
+		const data = axios.get(`?country=${country}`).then(resp => resp.data);
+		return data;
 	} catch (error) {
 		console.error(error);
 	}
@@ -25,7 +25,7 @@ export const getTopNewsInAllCategories = async (country: string, limit: number) 
 		const requests = categories.map(category =>
 			getTopNewsInCategory(country, category, limit)
     );
-		const response = await axios.all(requests).then(
+		const response = axios.all(requests).then(
 			resp => resp
 		);
 		return response;
