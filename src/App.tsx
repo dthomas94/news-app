@@ -7,6 +7,7 @@ import Categories from "./Categories";
 import Search from "./Search";
 import Nav from "./components/Nav";
 import theme from "./theme";
+import Card from "./components/Card";
 
 const routes = [
 	{
@@ -34,11 +35,11 @@ const App: React.FC = () => {
 	const [selectedCountry, setCountry] = useState("gb");
 	const [selectedCategory, setCategory] = useState(null);
 	const [heading, setHeading] = useState("Top News from Great Britain");
-	const location = useLocation();
+	const { pathname, hash, state } = useLocation();
 
 	useEffect(() => {
 		let heading = "";
-		switch (location.pathname) {
+		switch (pathname) {
 			case "/":
 				heading = `Top News from ${selectedCountry}:`;
 				break;
@@ -53,7 +54,7 @@ const App: React.FC = () => {
 				heading = `Search top news from ${selectedCountry} by term:`;
 		}
 		setHeading(heading);
-	}, [selectedCountry, selectedCategory, location.pathname]);
+	}, [selectedCountry, selectedCategory, pathname]);
 
 	return (
 		<Grommet theme={theme}>
@@ -68,13 +69,23 @@ const App: React.FC = () => {
 				/>
 				<Text>{heading}</Text>
 				<Switch>
-					{routes.map(({ path, view }) => (
-						<Route
-							key={path}
-              path={path}
-							component={() => view({ country: selectedCountry })}
-						/>
-					))}
+					{hash ? (
+								<Card
+									title={state.title}
+									content={state.content}
+									urlToImage={state.urlToImage}
+								/>
+					) : (
+						routes.map(({ path, view }) => (
+							<Route
+								exact
+								strict
+								key={path}
+								path={path}
+								component={() => view({ country: selectedCountry })}
+							/>
+						))
+					)}
 				</Switch>
 			</Box>
 		</Grommet>
