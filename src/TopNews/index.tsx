@@ -18,13 +18,12 @@ const TopNews: React.FC<TopNewsProps> = ({ country }) => {
 
 	return (
 		<Box pad="small" direction="row" wrap>
-			{articles.map(({ title, description, urlToImage, content }) => (
+			{articles.map(({ title, description, urlToImage}) => (
 				<Box width="medium">
 					<Card
 						title={title}
 						description={description}
 						urlToImage={urlToImage}
-						content={content}
 					/>
 				</Box>
 			))}

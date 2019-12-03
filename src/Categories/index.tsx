@@ -30,14 +30,13 @@ const Category: React.FC<CategoryProp> = ({
 		)}
 
 		<Box direction="row" justify="evenly" alignContent="center" fill wrap>
-			{articles.map(({ title, description, urlToImage, content }) => (
+			{articles.map(({ title, description, urlToImage }) => (
 				<Box width="small">
 					<Card
 						key={title}
 						title={title}
 						description={description}
 						urlToImage={urlToImage}
-						content={content}
 					/>
 				</Box>
 			))}

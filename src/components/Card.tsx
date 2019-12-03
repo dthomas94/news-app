@@ -25,7 +25,10 @@ const Card: React.FC<CardProps> = ({
 			justify="between"
 			alignContent="center"
 			responsive
-			fill
+      fill
+      elevation="small"
+      round="small"
+      pad="small"
 		>
 			<ReactTooltip id={title}>{title}</ReactTooltip>
 			<Text data-tip data-for={title}>
@@ -34,7 +37,8 @@ const Card: React.FC<CardProps> = ({
 			<Box height="small" width="small">
 				<Image fit="cover" src={urlToImage} />
 			</Box>
-			<Text>{description}</Text>
+			{description && <Text size="12">{description}</Text>}
+      {content && <Text size="12">{description}</Text>}
 			{hash ? (
 				<Button plain onClick={() => history.goBack()} label="Back to list" />
 			) : (
