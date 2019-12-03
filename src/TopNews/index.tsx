@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "grommet";
-import { getTopNewsInCountry } from "../utils";
+import { getTopNews } from "../utils";
 import Card from "../components/Card";
 
 type TopNewsProps = {
@@ -11,7 +11,7 @@ const TopNews: React.FC<TopNewsProps> = ({ country }) => {
 	const [articles, setArticles] = useState<Array<any>>([]);
 
 	useEffect(() => {
-		getTopNewsInCountry(country).then(data => {
+		getTopNews(country).then(data => {
 			setArticles(data.articles);
 		});
 	}, [country]);

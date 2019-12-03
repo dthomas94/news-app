@@ -70,11 +70,13 @@ const App: React.FC = () => {
 				<Text>{heading}</Text>
 				<Switch>
 					{hash ? (
+            <Box fill>
 								<Card
 									title={state.title}
 									content={state.content}
 									urlToImage={state.urlToImage}
 								/>
+                </Box>
 					) : (
 						routes.map(({ path, view }) => (
 							<Route

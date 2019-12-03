@@ -11,9 +11,9 @@ export const categories = [
 	"technology",
 ];
 
-export const getTopNewsInCountry = async (country: string) => {
+export const getTopNews = async (country: string, category="", limit=100) => {
 	try {
-		const data = axios.get(`?country=${country}`).then(resp => resp.data);
+		const data = axios.get(`?country=${country}&category=${category}&pageSize=${limit}`).then(resp => resp.data);
 		return data;
 	} catch (error) {
 		console.error(error);
@@ -23,26 +23,11 @@ export const getTopNewsInCountry = async (country: string) => {
 export const getTopNewsInAllCategories = async (country: string, limit: number) => {
 	try {
 		const requests = categories.map(category =>
-			getTopNewsInCategory(country, category, limit)
+			getTopNews(country, category, limit)
     );
 		const response = axios.all(requests).then(
 			resp => resp
 		);
-		return response;
-	} catch (error) {
-		console.error(error);
-	}
-};
-
-export const getTopNewsInCategory = async (
-	country: string,
-	category: string,
-	limit?: number
-) => {
-	try {
-		const response = axios.get(
-			`?country=${country}&category=${category}&pageSize=${limit}`
-		).then(resp => resp.data);
 		return response;
 	} catch (error) {
 		console.error(error);

@@ -3,7 +3,7 @@ import { Box, Text } from "grommet";
 import {
 	getTopNewsInAllCategories,
 	categories,
-	getTopNewsInCategory,
+	getTopNews,
 } from "../utils";
 import Card from "../components/Card";
 
@@ -65,7 +65,7 @@ const Categories: React.FC<CategoriesProps> = ({ country }) => {
 
 	useEffect(() => {
 		if (categoryHeading) {
-			getTopNewsInCategory(country, categoryHeading).then(({ articles }) => {
+			getTopNews(country, categoryHeading).then(({ articles }) => {
 				if (articles.length) {
 					setContent([{ articles, category: categoryHeading }]);
 				}
