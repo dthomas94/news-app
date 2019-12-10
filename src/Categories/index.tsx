@@ -1,10 +1,6 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { Box, Text } from "grommet";
-import {
-	getTopNewsInAllCategories,
-	categories,
-	getTopNews,
-} from "../utils";
+import { getTopNewsInAllCategories, categories, getTopNews } from "../utils";
 import Card from "../components/Card";
 
 type CategoriesProps = {
@@ -22,7 +18,7 @@ const Category: React.FC<CategoryProp> = ({
 	articles,
 	category,
 	setCategoryHeading,
-	showHeading,
+	showHeading
 }) => (
 	<Box fill>
 		{showHeading && (
