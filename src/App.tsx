@@ -15,20 +15,20 @@ const routes = [
 		path: "/topNews",
 		view: (props: any) => {
 			return <TopNews {...props} />;
-		},
+		}
 	},
 	{
 		label: "Categories",
 		path: "/categories",
 		view: (props: any) => {
 			return <Categories {...props} />;
-		},
+		}
 	},
 	{
 		label: "Search",
 		path: "/search",
-		view: (props: any) => <Search {...props} />,
-	},
+		view: (props: any) => <Search {...props} />
+	}
 ];
 
 const App: React.FC = () => {
@@ -40,7 +40,7 @@ const App: React.FC = () => {
 	useEffect(() => {
 		let heading = "";
 		switch (pathname) {
-			case "/":
+			case "/topNews":
 				heading = `Top News from ${selectedCountry}:`;
 				break;
 			case "/categories":
@@ -62,7 +62,7 @@ const App: React.FC = () => {
 				<Nav
 					routes={routes.map(route => ({
 						label: route.label,
-						path: route.path,
+						path: route.path
 					}))}
 					selectedCountry={selectedCountry}
 					setCountry={setCountry}
@@ -70,13 +70,13 @@ const App: React.FC = () => {
 				<Text>{heading}</Text>
 				<Switch>
 					{hash ? (
-            <Box fill>
-								<Card
-									title={state.title}
-									content={state.content}
-									urlToImage={state.urlToImage}
-								/>
-                </Box>
+						<Box fill>
+							<Card
+								title={state.title}
+								content={state.content}
+								urlToImage={state.urlToImage}
+							/>
+						</Box>
 					) : (
 						routes.map(({ path, view }) => (
 							<Route

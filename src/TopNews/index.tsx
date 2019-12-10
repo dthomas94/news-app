@@ -18,7 +18,7 @@ const TopNews: React.FC<TopNewsProps> = ({ country }) => {
 
 	return (
 		<Box pad="small" direction="row" wrap>
-			{articles.map(({ title, description, urlToImage}) => (
+			{articles.map(({ title, description, urlToImage }) => (
 				<Box width="medium">
 					<Card
 						title={title}
