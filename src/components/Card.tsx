@@ -15,9 +15,9 @@ const Card: React.FC<CardProps> = ({
 	title,
 	urlToImage,
 	description,
-	content
+	content,
 }) => {
-	const { hash } = useLocation();
+	const { hash, state } = useLocation();
 	const history = useHistory();
 	return (
 		<Box
@@ -37,8 +37,7 @@ const Card: React.FC<CardProps> = ({
 			<Box height="small" width="small">
 				<Image fit="cover" src={urlToImage} />
 			</Box>
-			{description && <Text size="12">{description}</Text>}
-			{content && <Text size="12">{content}</Text>}
+			<Text size="12">{hash ? content : description}</Text>
 			{hash ? (
 				<Button plain onClick={() => history.goBack()} label="Back to list" />
 			) : (

@@ -47,12 +47,13 @@ const Search: React.FC<SearchProps> = ({ country }) => {
 				/>
 			</Box>
 			<Box pad="small" direction="row" wrap>
-				{articles.map(({ title, description, urlToImage }) => (
+				{articles.map(({ title, description, urlToImage, content }) => (
 					<Box width="medium">
 						<Card
 							title={title}
 							description={description}
 							urlToImage={urlToImage}
+							content={content}
 						/>
 					</Box>
 				))}
