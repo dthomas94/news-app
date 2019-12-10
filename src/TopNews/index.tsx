@@ -17,7 +17,7 @@ const TopNews: React.FC<TopNewsProps> = ({ country }) => {
 	}, [country]);
 
 	return (
-		<Box pad="small" direction="row" wrap>
+		<Box pad="small" direction="row" wrap justify="between" >
 			{articles.map(({ title, description, urlToImage }) => (
 				<Box width="medium">
 					<Card

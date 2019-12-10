@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({
 	title,
 	urlToImage,
 	description,
-	content,
+	content
 }) => {
 	const { hash } = useLocation();
 	const history = useHistory();
@@ -25,20 +25,20 @@ const Card: React.FC<CardProps> = ({
 			justify="between"
 			alignContent="center"
 			responsive
-      fill
-      elevation="small"
-      round="small"
-      pad="small"
+			fill
+			elevation="small"
+			round="small"
+			pad="small"
 		>
-			<ReactTooltip id={title}>{title}</ReactTooltip>
+			{!hash && <ReactTooltip id={title}>{title}</ReactTooltip>}
 			<Text data-tip data-for={title}>
-				{_truncate(title, { length: 50 })}
+				{hash ? title : _truncate(title, { length: 50 })}
 			</Text>
 			<Box height="small" width="small">
 				<Image fit="cover" src={urlToImage} />
 			</Box>
 			{description && <Text size="12">{description}</Text>}
-      {content && <Text size="12">{description}</Text>}
+			{content && <Text size="12">{content}</Text>}
 			{hash ? (
 				<Button plain onClick={() => history.goBack()} label="Back to list" />
 			) : (
@@ -50,8 +50,8 @@ const Card: React.FC<CardProps> = ({
 						state: {
 							title,
 							urlToImage,
-							content,
-						},
+							content
+						}
 					})}
 				>
 					More
